@@ -114,7 +114,7 @@
 
 
 <h2>El endpoint que trae las tratamientos</h2>
-<p>Este endpoint es un GET que al no estar seguro de cuales serían los ultimos 10 tratamientos que se querian traer (en referencia al orden) se me ocurrió darle las opción mediante un parametro 'order' en el cual ustedes puedan elegir si ordernarlo por orden de creación, actualización y terminado. Estos van de forma descendiente es decir desde la fecha mas reciente a la mas antigua indistintamente de cual se elija.</p>
+<p>Este endpoint es un GET que al no estar seguro de cuales serían los ultimos 10 tratamientos que se querian traer (en referencia al orden) se me ocurrió darle las opción mediante un parametro 'order' en el cual ustedes puedan elegir si ordernarlo por orden de creación, actualización y terminado. Estos van de forma descendiente es decir desde la fecha mas reciente a la mas antigua indistintamente de cual metodo de orden se elija (por default ordena por el campo "ended_at").</p>
 
 <p>Para traer el nombre completo se utiliza un Accessor</p>
 
