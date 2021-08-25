@@ -13,8 +13,18 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+
+    public function messages()
+    {
+        return [
+            'gender.in' => 'No ha seleccionado una opción correcta, los valores posibles son m, f, o',
+            'email.email' => 'El email no tiene formato válido',
+            'email.unique' => 'El email ya existe',
+        ];
+    }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +34,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'gender'=>'in:m, f, o',
+            'email' => 'email|unique:users,email',
         ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dentist;
+namespace App\Http\Requests\Treatment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateDentistRequest extends FormRequest
+class UpdateTreatmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,8 +19,7 @@ class CreateDentistRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'El campo user_id es requerido',
-            'user_id.numeric' => 'El campo debe ser numerico'
+            'external_id.unique' => 'El campo external_id debe ser unico' 
         ];
     }
 
@@ -32,7 +31,7 @@ class CreateDentistRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|numeric'
+            'external_id'=>'numeric|unique:treatments,external_id',
         ];
     }
 }

@@ -20,11 +20,6 @@ class Patient extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s'
     ];
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     public function getFullNameAttribute($user_id)
     {
         $User = User::findOrFail($user_id);
@@ -33,6 +28,11 @@ class Patient extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
     }
 }

@@ -28,4 +28,19 @@ class User extends Authenticatable
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s'
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function dentists()
+    {
+        return $this->hasMany(Dentist::class);
+    }
+
+    public function patients()
+    {
+        return $this->hasMany(Dentist::class);
+    }
 }

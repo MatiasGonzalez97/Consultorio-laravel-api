@@ -24,11 +24,11 @@ class Treatment extends Model
     
     public function dentist()
     {
-        return $this->hasMany(Dentist::class);
+        return $this->belongsTo(Dentist::class);
     }
 
     public function patient()
     {
-        return $this->hasMany(Patient::class);
+        return $this->belongsTo(Patient::class);
     }
 }

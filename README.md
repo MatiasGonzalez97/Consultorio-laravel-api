@@ -1,64 +1,180 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<h1>Documentacion KS API</h1>
 
+<h5>Pequeña descripcion del proyecto:</h5>
+<p>API realizada en Laravel 8.x.x con CRUD de dentistas, pacientes y tratamientos</p>
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    Postman con algunas URL'S y sus correspondientes datos : https://www.getpostman.com/collections/3f25418fedbf5e6205b4
 </p>
 
-## About Laravel
+<strong>Pasos para poder utilizarla</strong>
+<ol>
+    <li>Crear la Base de datos, la misma se encuentra en un archivo llamado 'changes.sql' y la configuración se encuentra en el archivo .env</li>
+    <li>Correr el comando por consola 'composer install'</li>
+    <li>Correr las migraciones para las creaciones de las tablas con el comando ' php artisan migrate '</li>
+    <li>Rellenar la base de datos con el comando ' php artisan db:seed '</li>
+    <li>Poner en marcha el servidor con el comando: ' php artisan serve '</li>
+    <li>Listo! ya teniendo en marcha el proyecto solo quedá comenzar a probarlo</li>
+</ol>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<h2>Notas:</h2>
+<strong>Todos los controllers tienen los metodos HTTP más comunes a utilizar a excepción de ['create','edit']</strong>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<strong>Estos utilizan "Request" que se pueden encontrar dentro de la carpeta App/Http/Request donde se hacen ciertas comprobaciones antes de empezar a "ejecutar" las acciones dentro de los metodos del controller</strong>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<strong>Para hashear la contraseña se hace uso de un mutator: setPasswordAttribute dentro del modelo User</strong>
 
-## Learning Laravel
+## Users Controllers
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<bold>GET: http://127.0.0.1:8000/api/user</bold>
+-- Trae todos los elementos que se encuentren en la tabla users
+<p> Request: No lleva</p>
+<p> Response : [
+    {
+        "id": 1,
+        "name": "hv8qQ2qLq1",
+        "surname": "IbY4Q03Aqhp",
+        "gender": "o",
+        "email": "rkdS0MFWD5@gmail.com",
+        "password": "$2y$10$74kGZCCU0BU9j18FwScn/eJLwD7ZFBVgJAegAfsNE9inYjrb7YIme",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    }]
+</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<bold>GET: http://127.0.0.1:8000/api/user/[id]</bold><small>[id] = 5</small>
+-- Busca al elemento por id de la tabla users
+<p> Request: No lleva</p>
+<p> Response : [
+    {
+        "id": 5,
+        "name": "hv8qQ2qLq1",
+        "surname": "IbY4Q03Aqhp",
+        "gender": "o",
+        "email": "rkdS0MFWD5@gmail.com",
+        "password": "$2y$10$74kGZCCU0BU9j18FwScn/eJLwD7ZFBVgJAegAfsNE9inYjrb7YIme",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": null
+    }]
+</p>
 
-## Laravel Sponsors
+<bold>PUT: http://127.0.0.1:8000/api/user/[id]</bold><small>[id] = 5</small>
+-- Busca al elemento por id de la tabla users y actualiza el valor mandado en el request, en este ejemplo vamos a actualizar el nombre
+<p> Request:
+    {
+        "name":"matias"
+    }
+</p>
+<p> Response :
+    {
+        "id": 5,
+        "name": "matias",
+        "surname": "YRdsKmgfR6a",
+        "gender": "o",
+        "email": "8Wxg04oHxN@gmail.com",
+        "password": "$2y$10$DlmOl3jxTZhOuGrjRcY27eyndbpmyvYJyj4BuWvIUQ8nSSRbytd0q",
+        "deleted_at": null,
+        "created_at": null,
+        "updated_at": "2021-08-25 02:42:24"
+    }
+</p>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<bold>Delete: http://127.0.0.1:8000/api/user/[id]</bold><small>[id] = 5</small>
+-- Busca al elemento por id de la tabla users y lo elimina de forma logica.
+<p> Request: no lleva
+</p>
+<p> Response : null, HTTP code = 204 </p>
 
-### Premium Partners
+<bold>POST: http://127.0.0.1:8000/api/user/[id]</bold><small>[id] = 5</small>
+-- Vamos a crear un elemento en base de datos mediante el metodo post
+<p> Request:
+    {
+        "name":"matias",
+        "surname":"gonzalez",
+        "gender":"m",
+        "email":"matias@sks.com",
+        "password":"matias"
+    }
+</p>
+<p> Response :
+    {
+        "name": "matias",
+        "surname": "gonzalez",
+        "gender": "m",
+        "email": "matias@sks.com",
+        "password": "$2y$10$qvZXDI2IMzDlgC1bRHZPbuPs/oOwbzlXTz573GOZJraIUojeWyvHK",
+        "updated_at": "2021-08-25 02:19:21",
+        "created_at": "2021-08-25 02:19:21",
+        "id": 15
+    }
+</p>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+<h5> De forma similar es con el resto de los endpoints para paciente,dentist,treatments.</h5>
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<h2>El endpoint que trae las tratamientos</h2>
+<p>Este endpoint es un GET que al no estar seguro de cuales serían los ultimos 10 tratamientos que se querian traer (en referencia al orden) se me ocurrió darle las opción mediante un parametro 'order' en el cual ustedes puedan elegir si ordernarlo por orden de creación, actualización y terminado. Estos van de forma descendiente es decir desde la fecha mas reciente a la mas antigua indistintamente de cual se elija.</p>
 
-## Code of Conduct
+<p>Para traer el nombre completo se utiliza un Accessor</p>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<bold>GET: http://127.0.0.1:8000/api/treatments?order=created_at</bold>
+<p> Request: (va en la url xxxx?order='created_at' o xxxx?order='updated_at' o xxxx?order='ended_at') estos 
+</p>
+<p> Response :
+   [
+    {
+        "id": 5,
+        "external_id": 7138,
+        "created_at": "08/07/2021",
+        "updated_at": "12/08/2021",
+        "ended_at": "25/09/2020",
+        "dentist": {
+            "id": 10,
+            "full_name": "TYWOc2oeL0 EZQFYk4NMYY",
+            "email": "qYYtKtMnSC@gmail.com"
+        },
+        "patient": {
+            "id": 10,
+            "full_name": "TYWOc2oeL0 EZQFYk4NMYY",
+            "email": "qYYtKtMnSC@gmail.com"
+        }
+    },
+    {
+        "id": 8,
+        "external_id": 9152,
+        "created_at": "22/05/2021",
+        "updated_at": "19/04/2021",
+        "ended_at": "19/01/2021",
+        "dentist": {
+            "id": 7,
+            "full_name": "xjs8fBSDjq opWaYmurezP",
+            "email": "EDVGhv9xVH@gmail.com"
+        },
+        "patient": {
+            "id": 7,
+            "full_name": "xjs8fBSDjq opWaYmurezP",
+            "email": "EDVGhv9xVH@gmail.com"
+        }
+    },
+    {
+        "id": 4,
+        "external_id": 6005,
+        "created_at": "13/05/2021",
+        "updated_at": "23/06/2021",
+        "ended_at": "10/10/2020",
+        "dentist": {
+            "id": 11,
+            "full_name": "wCzsJWiv4b AcNH1S8wQkM",
+            "email": "0AMg2DuWFZ@gmail.com"
+        },
+        "patient": {
+            "id": 11,
+            "full_name": "wCzsJWiv4b AcNH1S8wQkM",
+            "email": "0AMg2DuWFZ@gmail.com"
+        }
+    }
+   ]
+</p>
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Created by Matias Gonzalez

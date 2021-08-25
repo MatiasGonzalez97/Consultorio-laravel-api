@@ -51,9 +51,27 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //TODO: HACER UPDATE
+        $User = User::findOrFail($id);
+        if($request->has('name')){
+            $User->name = $request->input('name');
+        }
+        if($request->has('surname')){
+            $User->surname = $request->input('surname');
+        }
+        if($request->has('gender')){
+            $User->gender = $request->input('gender');
+        }
+        if($request->has('email')){
+            $User->email = $request->input('email');
+        }
+        if($request->has('password')){
+            $User->password = $request->input('password');
+        }
+        $User->save();
+
+        return response()->json($User);
     }
 
     /**
