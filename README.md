@@ -1,4 +1,4 @@
-<h1>Documentacion KS API</h1>
+<h1>Documentacion consultorio API</h1>
 
 <h5>Pequeña descripcion del proyecto:</h5>
 <p>API realizada en Laravel 8.x.x con CRUD de dentistas, pacientes y tratamientos</p>
